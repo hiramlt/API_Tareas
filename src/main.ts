@@ -5,16 +5,21 @@ import morgan from "morgan";
 import cors from "cors";
 
 import { AppDataSource } from "./db";
+import { taskRouter } from "./tasks/infraestructure/TaskRouter";
 
 function main() {
     try {
-        const app = express();
-        AppDataSource.initialize()
+        AppDataSource.initialize().then(() => {
+            console.log("Database connected")
+        })
         
+        const app = express();
         app.use(morgan('dev'))
         app.use(cors())
         app.use(bodyParser.json());
         app.use(bodyParser.urlencoded({ extended: true }));
+
+        app.use('/tasks', taskRouter);
 
         const PORT = 3000
         app.listen(PORT, () => {

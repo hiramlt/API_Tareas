@@ -20,6 +20,12 @@ export class Task extends BaseEntity {
     @Column()  //ID del usuario responsable
     responsible!: number;
 
-    @Column()
+    @Column({
+        type: 'text', // Transformación de lista a texto para almacenamiento en BD
+        transformer: {
+          to: tags => JSON.stringify(tags), 
+          from: tagsString => JSON.parse(tagsString) 
+        }
+      })
     tags!: string[];
 }

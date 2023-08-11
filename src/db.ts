@@ -1,4 +1,5 @@
 import { DataSource } from "typeorm";
+import { Task } from "./tasks/domain/Task";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -7,6 +8,7 @@ export const AppDataSource = new DataSource({
     username: "root",
     password: "h203420Passw1.",
     database: "tasks_db",
-    entities: [],
-    logging: true
+    entities: [Task],
+    logging: true,
+    synchronize: true
 })
