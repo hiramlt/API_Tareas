@@ -7,8 +7,16 @@ export class DeleteTaskController {
     async run(req: Request, res: Response) {
         const id = req.params.id;
         try {
-            await this.deleteTaskUseCase.run(Number(id));
-            res.status(200).send('Task deleted successfully')
+            const deleted = await this.deleteTaskUseCase.run(Number(id));
+            if (deleted != null) {
+                if (deleted){
+                    res.status(200).send('Task deleted successfully')
+                } else {
+                    res.status(404).send("Task not found");
+                }
+            } else {
+                res.status(400).send("Task not available");
+            }
         } catch (error) {
             res.status(500).send(error)
         }

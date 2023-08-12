@@ -8,7 +8,11 @@ export class GetTaskController {
         const id = req.params.id;
         try {
             const task = await this.getTaskUseCase.run(Number(id));
-            res.status(200).send(task)
+            if (task != null){
+                res.status(200).send(task)
+            } else {
+                res.status(404).send("Task not available");
+            }
         } catch (error) {
             res.status(500).send(error)
         }

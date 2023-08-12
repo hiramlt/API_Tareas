@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { CreateTaskUseCase } from "../../application/CreateTaskUseCase";
 import { Task } from "../../domain/Task";
+import { QueryFailedError } from "typeorm";
 
 export class CreateTaskController {
   constructor(readonly createTaskUseCase: CreateTaskUseCase) {}
@@ -25,11 +26,16 @@ export class CreateTaskController {
       task.deadline = data.deadline;
       task.responsible = data.responsible;
       task.tags = tags;
+      task.is_public = String(data.is_public).toLowerCase() === 'true';
 
       const createdTask = await this.createTaskUseCase.run(task);
       res.status(201).send(createdTask)
     } catch (error) {
-        res.status(500).send(error)
+        if (error instanceof QueryFailedError){
+            res.status(400).send(error.message)
+        } else {
+            res.status(500).send(error)
+        }
     }
   }
 }

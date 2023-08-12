@@ -7,7 +7,11 @@ export class GetTaskListController {
     async run(req: Request, res: Response) {
         try {
             const tasks = await this.getTaskListUseCase.run();
-            res.status(200).send(tasks)
+            if (tasks != null){
+                res.status(200).send(tasks)
+            } else {
+                res.status(404).send("No tasks available");
+            }
         } catch (error) {
             res.status(500).send(error)
         }

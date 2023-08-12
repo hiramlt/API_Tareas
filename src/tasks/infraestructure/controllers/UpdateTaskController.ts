@@ -28,7 +28,13 @@ export class UpdateTaskController {
             task.tags = tags;
 
             const updatedTask = await this.updateTaskUseCase.run(task);
-            res.status(200).send(updatedTask)
+
+            if (updatedTask != null){
+                res.status(200).send(updatedTask)
+            } else {
+                res.status(404).send("Task not available");
+            }
+            
         } catch (error) {
             res.status(500).send(error)
         }

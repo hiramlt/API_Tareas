@@ -3,7 +3,7 @@ import { Task } from "./Task";
 export interface TaskRepository {
     create(task: Task): Promise<Task | null>
     update(task: Task): Promise<Task | null>
-    delete(taskId: number): Promise<void>
+    delete(taskId: number): Promise<boolean | null>
     findById(taskId: number): Promise<Task | null>
     findAll(): Promise<Task[] | null>
 }

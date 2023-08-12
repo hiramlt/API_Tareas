@@ -9,6 +9,6 @@ export const AppDataSource = new DataSource({
     password: "h203420Passw1.",
     database: "tasks_db",
     entities: [Task],
-    logging: true,
+    logging: false,
     synchronize: true
 })

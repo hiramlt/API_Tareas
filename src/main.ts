@@ -7,9 +7,9 @@ import cors from "cors";
 import { AppDataSource } from "./db";
 import { taskRouter } from "./tasks/infraestructure/TaskRouter";
 
-function main() {
+async function main() {
     try {
-        AppDataSource.initialize().then(() => {
+        await AppDataSource.initialize().then(() => {
             console.log("Database connected")
         })
         
