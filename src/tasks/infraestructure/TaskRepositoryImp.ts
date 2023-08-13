@@ -23,6 +23,7 @@ export class TaskRepositoryImp implements TaskRepository {
                 status: task.status,
                 deadline: task.deadline,
                 responsible: task.responsible,
+                tags: task.tags,
                 is_public: task.is_public
             })
     

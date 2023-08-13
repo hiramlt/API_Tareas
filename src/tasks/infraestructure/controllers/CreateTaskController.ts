@@ -8,11 +8,20 @@ export class CreateTaskController {
   constructor(readonly createTaskUseCase: CreateTaskUseCase) {}
 
   async run(req: Request, res: Response) {
+    const files: Express.Multer.File[] = req.files as Express.Multer.File[];
     const data = req.body;
     let tags = [];
     let comments = []
+    let file_paths: string[] = []
+
     try {
-      if (data.tags != null) {
+      if (files.length > 0) {  // Guardado de ruta de archivos
+        files.map((file) => {
+          file_paths.push(`/uploads/${file.filename}`)
+        })
+      }
+
+      if (data.tags != null) {    // Validación de multiples/único tag
         if (typeof data.tags === "string") {
           tags.push(data.tags);
         } else {
@@ -20,7 +29,7 @@ export class CreateTaskController {
         }
       }
 
-      if (data.comments != null) {
+      if (data.comments != null) { // Validación de multiples/único commentario
         if (typeof data.comments === "string") {
           comments.push(new Comment(
             data.comments,
@@ -43,6 +52,7 @@ export class CreateTaskController {
       task.responsible = data.responsible;
       task.tags = tags;
       task.comments = comments;
+      task.files = file_paths;
       task.is_public = String(data.is_public).toLowerCase() === 'true';
 
       const createdTask = await this.createTaskUseCase.run(task);

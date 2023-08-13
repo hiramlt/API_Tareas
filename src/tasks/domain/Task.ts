@@ -18,10 +18,10 @@ export class Task extends BaseEntity {
     @Column({ nullable: false })
     deadline!: string;
 
-    @Column({ nullable: false })
+    @Column({ nullable: false }) //ID del usuario
     created_by!: number;
 
-    @Column({ nullable: true })  //ID del usuario responsable
+    @Column({ nullable: true })  //ID del usuario
     responsible!: number;
 
     @Column({
@@ -43,6 +43,16 @@ export class Task extends BaseEntity {
         }
       })
     tags!: string[];
+
+    @Column({
+      nullable: true,
+      type: 'text', 
+      transformer: {
+        to: files => JSON.stringify(files), 
+        from: filesString => JSON.parse(filesString) 
+      }
+    })
+    files!: string[];
 
     @Column({ nullable: false })
     is_public!: boolean;
