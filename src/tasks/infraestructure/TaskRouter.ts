@@ -6,6 +6,7 @@ import {
     updateTaskController,
     getTaskController,
     getTaskListController,
+    addCommentController
 } from "./dependencies";
 
 export const taskRouter = express.Router();
@@ -15,4 +16,5 @@ taskRouter.delete('/:id', deleteTaskController.run.bind(deleteTaskController));
 taskRouter.put('/:id', updateTaskController.run.bind(updateTaskController));
 taskRouter.get('/:id', getTaskController.run.bind(getTaskController));
 taskRouter.get('/', getTaskListController.run.bind(getTaskListController));
+taskRouter.post('/comment/:id', addCommentController.run.bind(addCommentController));
 

@@ -1,4 +1,5 @@
 import { BaseEntity, Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Comment } from "./Comment";
 
 @Entity()
 export class Task extends BaseEntity {
@@ -17,6 +18,9 @@ export class Task extends BaseEntity {
     @Column({ nullable: false })
     deadline!: string;
 
+    @Column({ nullable: false })
+    created_by!: number;
+
     @Column({ nullable: true })  //ID del usuario responsable
     responsible!: number;
 
@@ -28,7 +32,7 @@ export class Task extends BaseEntity {
           from: commentsString => JSON.parse(commentsString) 
         }
       })
-    comments!: string[];
+    comments!: Comment[];
 
     @Column({
         nullable: true,

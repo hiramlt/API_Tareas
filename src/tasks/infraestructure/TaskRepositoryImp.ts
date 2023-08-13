@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import { Task } from "../domain/Task";
 import { TaskRepository } from "../domain/TaskRepository";
 import { AppDataSource } from "../../db";
+import { Comment } from "../domain/Comment";
 
 export class TaskRepositoryImp implements TaskRepository {
     private repository: Repository<Task>
@@ -22,7 +23,7 @@ export class TaskRepositoryImp implements TaskRepository {
                 status: task.status,
                 deadline: task.deadline,
                 responsible: task.responsible,
-                tags: task.tags,
+                is_public: task.is_public
             })
     
             return this.repository.findOneBy( {id: task.id} )
@@ -55,5 +56,19 @@ export class TaskRepositoryImp implements TaskRepository {
                 is_public: true
             }
         });
+    }
+
+    async addComment(taskId: number, comment: Comment): Promise<Task | null> {
+        const task = await this.repository.findOneBy({ id: taskId });
+
+        if (task && Boolean(task.is_public) === true) {
+            task.comments.push(comment); 
+            await this.repository.update(task.id, {
+                comments: task.comments
+            });
+
+            return this.repository.findOneBy({ id: task.id });
+        }
+        return null;
     }
 }

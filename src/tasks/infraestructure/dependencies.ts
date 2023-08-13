@@ -3,12 +3,14 @@ import { DeleteTaskUseCase } from "../application/DeleteTaskUseCase";
 import { UpdateTaskUseCase } from "../application/UpdateTaskUseCase";
 import { GetTaskUseCase } from "../application/GetTaskUseCase";
 import { GetTaskListUseCase } from "../application/GetTaskListUseCase";
+import { AddCommentUseCase } from "../application/AddCommentUseCase";
 
 import { CreateTaskController } from "./controllers/CreateTaskController";
 import { DeleteTaskController } from "./controllers/DeleteTaskController";
 import { UpdateTaskController } from "./controllers/UpdateTaskController";
 import { GetTaskController } from "./controllers/GetTaskController";
 import { GetTaskListController } from "./controllers/GetTaskListController";
+import { AddCommentController } from "./controllers/AddCommentController";
 
 import { TaskRepositoryImp } from "./TaskRepositoryImp";
 
@@ -29,5 +31,6 @@ export const getTaskController = new GetTaskController(getTaskUseCase);
 export const getTaskListUseCase = new GetTaskListUseCase(taskRepositoryImp);
 export const getTaskListController = new GetTaskListController(getTaskListUseCase);
 
-
+export const addCommentUseCase = new AddCommentUseCase(taskRepositoryImp);
+export const addCommentController = new AddCommentController(addCommentUseCase);
 

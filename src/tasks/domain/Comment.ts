@@ -1,7 +1,6 @@
 export class Comment {
     constructor(
       readonly content: string,
-      readonly createdBy: number,
-      readonly timeStamp: string
+      readonly created_by: number,
     ) {}
   }
