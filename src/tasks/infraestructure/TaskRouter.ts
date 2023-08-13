@@ -6,7 +6,9 @@ import {
     updateTaskController,
     getTaskController,
     getTaskListController,
-    addCommentController
+    addCommentController,
+    getByStatusController,
+    getByDateController,
 } from "./dependencies";
 
 export const taskRouter = express.Router();
@@ -17,4 +19,5 @@ taskRouter.put('/:id', updateTaskController.run.bind(updateTaskController));
 taskRouter.get('/:id', getTaskController.run.bind(getTaskController));
 taskRouter.get('/', getTaskListController.run.bind(getTaskListController));
 taskRouter.post('/comment/:id', addCommentController.run.bind(addCommentController));
-
+taskRouter.get('/filter/status', getByStatusController.run.bind(getByStatusController));
+taskRouter.get('/filter/date', getByDateController.run.bind(getByDateController));

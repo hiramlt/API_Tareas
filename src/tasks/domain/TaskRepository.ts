@@ -8,4 +8,7 @@ export interface TaskRepository {
     findById(taskId: number): Promise<Task | null>
     findAll(): Promise<Task[] | null>
     addComment(taskId: number, comment: Comment): Promise<Task | null>
+    filterByResponsible(responsible: number): Promise<Task[] | null>
+    filterByStatus(status: string): Promise<Task[] | null>
+    filterByDate(date: string): Promise<Task[] | null>
 }

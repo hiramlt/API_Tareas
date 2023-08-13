@@ -4,6 +4,8 @@ import { UpdateTaskUseCase } from "../application/UpdateTaskUseCase";
 import { GetTaskUseCase } from "../application/GetTaskUseCase";
 import { GetTaskListUseCase } from "../application/GetTaskListUseCase";
 import { AddCommentUseCase } from "../application/AddCommentUseCase";
+import { GetByStatusUseCase } from "../application/GetByStatusUseCase";
+import { GetByDateUseCase } from "../application/GetByDateUseCase";
 
 import { CreateTaskController } from "./controllers/CreateTaskController";
 import { DeleteTaskController } from "./controllers/DeleteTaskController";
@@ -11,6 +13,8 @@ import { UpdateTaskController } from "./controllers/UpdateTaskController";
 import { GetTaskController } from "./controllers/GetTaskController";
 import { GetTaskListController } from "./controllers/GetTaskListController";
 import { AddCommentController } from "./controllers/AddCommentController";
+import { GetByStatusController } from "./controllers/GetByStatusController";
+import { GetByDateController } from "./controllers/GetByDateController";
 
 import { TaskRepositoryImp } from "./TaskRepositoryImp";
 
@@ -34,3 +38,8 @@ export const getTaskListController = new GetTaskListController(getTaskListUseCas
 export const addCommentUseCase = new AddCommentUseCase(taskRepositoryImp);
 export const addCommentController = new AddCommentController(addCommentUseCase);
 
+export const getByStatusUseCase = new GetByStatusUseCase(taskRepositoryImp);
+export const getByStatusController = new GetByStatusController(getByStatusUseCase);
+
+export const getByDateUseCase = new GetByDateUseCase(taskRepositoryImp);
+export const getByDateController = new GetByDateController(getByDateUseCase);

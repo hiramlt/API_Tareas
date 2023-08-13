@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { Repository, Like } from "typeorm";
 import { Task } from "../domain/Task";
 import { TaskRepository } from "../domain/TaskRepository";
 import { AppDataSource } from "../../db";
@@ -70,5 +70,33 @@ export class TaskRepositoryImp implements TaskRepository {
             return this.repository.findOneBy({ id: task.id });
         }
         return null;
+    }
+
+    async filterByResponsible(responsible: number): Promise<Task[] | null> {
+        return await this.repository.find({
+            where: {
+                is_public: true,
+                responsible: responsible,
+            }
+        });
+    }
+
+    async filterByStatus(status: string): Promise<Task[] | null> {
+        console.log(status)
+        return await this.repository.find({
+            where: {
+                is_public: true,
+                status: Like(`%${status}%`),
+            }
+        });
+    }
+
+    async filterByDate(date: string): Promise<Task[] | null> {
+        return await this.repository.find({
+            where: {
+                is_public: true,
+                deadline: date,
+            }
+        });
     }
 }
